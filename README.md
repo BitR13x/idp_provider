@@ -2,6 +2,9 @@
 
 A lightweight, customizable Identity Provider (IDP) built with **Bun** and **ElysiaJS**. This service implements standard OpenID Connect (OIDC) protocols to handle user authentication, registration, and token management.
 
+You can read about the project right here:
+[medium.com/@bitr13x](https://medium.com/@bitr13x/everything-worth-knowing-about-identity-providers-oauth-and-openid-connect-7a720bae73b1)
+
 ## Features
 
 -   **Protocols:** OIDC (Identity) & OAuth 2.0 (Access).
