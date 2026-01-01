@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/auth.css">
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <h2 class="login-title">Login</h2>
+
+      <div id="message"></div>
+
+      <form id="loginForm" method="POST">
+        <div class="login-form-group">
+          <label class="login-label">Username</label>
+          <input required id="username" name="username" class="login-input" type="text" placeholder="Enter your username" />
+        </div>
+
+        <div class="login-form-group">
+          <label class="login-label">Password</label>
+          <input required id="password" name="password" class="login-input" type="password" placeholder="Enter your password" />
+        </div>
+
+        <button class="login-submit-btn" type="submit">Login</button>
+      </form>
+
+      <div class="login-toggle-container">
+        <a id="registerLink" href="register.html" class="login-toggle-btn">
+          Don't have an account? Register
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const returnTo = urlParams.get("return_to");
+    const error = urlParams.get("error");
+    
+    if (error) {
+      const msgDiv = document.getElementById("message");
+      msgDiv.className = "message error";
+      msgDiv.textContent = decodeURIComponent(error);
+    }
+
+    const form = document.getElementById("loginForm");
+    const regLink = document.getElementById("registerLink");
+
+    if (returnTo) {
+      form.action = "/login?return_to=" + encodeURIComponent(returnTo);
+      regLink.href = "/register?return_to=" + encodeURIComponent(returnTo);
+    } else {
+      form.action = "/login";
+      regLink.href = "/register";
+    }
+  </script>
+</body>
+
+</html>

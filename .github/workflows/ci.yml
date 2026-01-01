@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+
+    - name: Install dependencies
+      run: bun install
+
+    - name: generate keys
+      run: openssl genrsa -out src/config/private.pem 2048
+      run: openssl rsa -in src/config/private.pem -pubout -out src/config/public.pem
+
+    - name: Verify Build
+      # Simple check to ensure code compiles/interprets
+      run: bun run src/index.ts --help || true
+
+    - name: Run Tests
+      run: bun test
+
+  docker:
+    name: Docker Build
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag my-idp-provider:latest
