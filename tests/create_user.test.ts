@@ -5,12 +5,13 @@ import { setupDatabase } from "./utils/shared";
 
 describe("Creation", async () => {
     await setupDatabase();
-    test("should create admin account", async () => {
-        const username = "admin";
-        const passwordHash = await argon2.hash("adminadmin");
+    test("should create an account", async () => {
+        const username = "user123";
+        const passwordHash = await argon2.hash("adminadmin123");
 
         await User.create({
             username: username,
+            email: "user@localhost.com",
             hsPassword: passwordHash,
         }).save();
 
