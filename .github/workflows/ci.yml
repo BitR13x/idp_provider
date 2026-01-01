@@ -35,6 +35,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+
+      - name: generate keys
+        run: openssl genrsa -out src/config/private.pem 2048 && openssl rsa -in src/config/private.pem -pubout -out src/config/public.pem
       
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag my-idp-provider:latest
