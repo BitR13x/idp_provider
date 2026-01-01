@@ -25,10 +25,6 @@ jobs:
     - name: generate keys
       run: openssl genrsa -out src/config/private.pem 2048 && openssl rsa -in src/config/private.pem -pubout -out src/config/public.pem
 
-    - name: Verify Build
-      # Simple check to ensure code compiles/interprets
-      run: bun run src/index.ts --help || true
-
     - name: Run Tests
       run: bun test
 
